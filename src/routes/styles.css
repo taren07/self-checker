@@ -20,8 +20,8 @@ html {
 }
 
 body {
-  background: var(--qwik-dark-background);
-  color: var(--qwik-dark-text);
+  background: white;
+  color: black;
   overflow-x: hidden;
 }
 
