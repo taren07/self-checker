@@ -1,11 +1,17 @@
 import { component$ } from "@builder.io/qwik";
-import type { DocumentHead } from "@builder.io/qwik-city";
+import { useNavigate, type DocumentHead } from "@builder.io/qwik-city";
+
+import * as styles from "./index.css";
 
 export default component$(() => {
+	const nav = useNavigate();
+
 	return (
-		<>
-			<button>Click me</button>
-		</>
+		<div style={{ textAlign: "center" }}>
+			<button class={styles.startButton} onClick$={() => nav("/numbers")}>
+				はじめる
+			</button>
+		</div>
 	);
 });
 
