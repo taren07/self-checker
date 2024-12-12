@@ -1,17 +1,13 @@
-import { component$, useContext, useStore } from "@builder.io/qwik";
+import { $, component$, useContext, useStore } from "@builder.io/qwik";
 import { NumbersContext, NumbersStore } from ".";
-
-export type PartialNumbersStore = Omit<NumbersStore, "direction" | "answers"> &
-	Partial<Pick<NumbersStore, "direction" | "answers">>;
 
 export const Top = component$(() => {
 	const numbersContext = useContext(NumbersContext);
-	const start = useStore<PartialNumbersStore>(numbersContext);
 
-	const startHandler = () => {
-		start.step = { tag: "StartTrial" };
-		start.answerLength = 3;
-	};
+	const startHandler = $(() => {
+		numbersContext.step = { tag: "CountDown" };
+		numbersContext.answerLength = 3;
+	});
 
 	return (
 		<main>

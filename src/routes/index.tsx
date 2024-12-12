@@ -8,7 +8,7 @@ export default component$(() => {
 
 	return (
 		<div style={{ textAlign: "center" }}>
-			<button class={styles.startButton} onClick$={() => nav("/numbers")}>
+			<button class={styles.startButton} onClick$={() => nav("/numbers/")}>
 				はじめる
 			</button>
 		</div>

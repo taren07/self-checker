@@ -4,9 +4,12 @@ import {
 	createContextId,
 	useContextProvider,
 	useContext,
+	useTask$,
+	$,
 } from "@builder.io/qwik";
 import { numbersContextId } from "~/context/id";
 import { Top } from "./top";
+import { CountDown } from "./count-down";
 
 export type NumbersStore = {
 	step:
@@ -14,17 +17,39 @@ export type NumbersStore = {
 		| { tag: "CountDown" }
 		| { tag: "CountDownFinished" }
 		| { tag: "ShowDigit" }
+		| { tag: "ShowDigitFinished" }
 		| { tag: "Answer" }
 		| { tag: "Result" };
-	direction: String;
+	direction?: String;
 	answerLength: Number;
-	answers: Array<Number>;
+	answers?: Array<Number>;
 };
 
 export const NumbersContext = createContextId<NumbersStore>(numbersContextId);
 
-export const DigitSpanBackward = component$(() => {
+export const SwitchComponent = component$(() => {
 	const numbersContext = useContext(NumbersContext);
+
+	const onComplete = $(() => {
+		numbersContext.step = { tag: "CountDownFinished" };
+		numbersContext.answerLength = 3;
+	});
+
+	switch (numbersContext.step.tag) {
+		case "Top":
+			return <Top />;
+		case "CountDown":
+			return <CountDown onComplete={onComplete} />;
+		case "ShowDigit":
+			return <></>;
+		case "Answer":
+			return <></>;
+		case "Result":
+			return <></>;
+	}
+});
+
+export const DigitSpanBackward = component$(() => {
 	const numbersStore = useStore<NumbersStore>({
 		step: { tag: "Top" },
 		direction: "backward",
@@ -33,18 +58,7 @@ export const DigitSpanBackward = component$(() => {
 	});
 	useContextProvider(NumbersContext, numbersStore);
 
-	switch (numbersStore.step.tag) {
-		case "Top":
-			return <Top />;
-		case "CountDown":
-			return <></>;
-		case "ShowDigit":
-			return <></>;
-		case "Answer":
-			return <></>;
-		case "Result":
-			return <></>;
-	}
-
-	return <></>;
+	return <SwitchComponent />;
 });
+
+export default DigitSpanBackward;
