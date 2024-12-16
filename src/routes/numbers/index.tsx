@@ -1,31 +1,13 @@
 import {
 	component$,
 	useStore,
-	createContextId,
 	useContextProvider,
 	useContext,
-	useTask$,
 	$,
 } from "@builder.io/qwik";
-import { numbersContextId } from "~/context/id";
 import { Top } from "./top";
 import { CountDown } from "./count-down";
-
-export type NumbersStore = {
-	step:
-		| { tag: "Top" }
-		| { tag: "CountDown" }
-		| { tag: "CountDownFinished" }
-		| { tag: "ShowDigit" }
-		| { tag: "ShowDigitFinished" }
-		| { tag: "Answer" }
-		| { tag: "Result" };
-	direction?: String;
-	answerLength: Number;
-	answers?: Array<Number>;
-};
-
-export const NumbersContext = createContextId<NumbersStore>(numbersContextId);
+import { NumbersContext, NumbersStore } from "~/context/numbers";
 
 export const SwitchComponent = component$(() => {
 	const numbersContext = useContext(NumbersContext);

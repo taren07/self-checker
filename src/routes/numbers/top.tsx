@@ -1,5 +1,5 @@
 import { $, component$, useContext, useStore } from "@builder.io/qwik";
-import { NumbersContext, NumbersStore } from ".";
+import { NumbersContext } from "~/context/numbers";
 
 export const Top = component$(() => {
 	const numbersContext = useContext(NumbersContext);
