@@ -1,5 +1,5 @@
 import { useSignal, useComputed$, useTask$, useContext } from '@builder.io/qwik';
-import { reversed } from '../lib/useArray';
+import { reversed } from './useArray';
 import invariant from 'tiny-invariant';
 import { NumbersContext, showDigitFinishedStep } from "../context/numbers";
 
@@ -7,7 +7,12 @@ type ShowDigitStep = {
   correct: number[];
 };
 
-export const useNumberDisplay = () => {
+type NumberDisplay = {
+    id: number;
+    number: number;
+};
+
+export const useNumberDisplay = (): [NumberDisplay, { inc: () => void }] => {
   const numbersContext = useContext(NumbersContext);
   const step = numbersContext.step as ShowDigitStep;
   const showDigitFinished = numbersContext.step as showDigitFinishedStep;
@@ -38,5 +43,5 @@ export const useNumberDisplay = () => {
     stepIndex.value += 1;
   };
 
-  return [number, { inc }] as const;
+  return [number.value, { inc }] as const;
 };
