@@ -1,4 +1,4 @@
-import { component$, useSignal, useVisibleTask$ } from "@builder.io/qwik";
+import { $, component$, useSignal, useVisibleTask$ } from "@builder.io/qwik";
 import { animate } from "motion";
 import { useNumberDisplay } from "~/lib/useNumberDisplay";
 import * as styles from "./styles/show-digit.css";
@@ -6,6 +6,8 @@ import * as styles from "./styles/show-digit.css";
 export const ShowDigit = component$(() => {
 	const [number, { inc }] = useNumberDisplay();
 	const containerRef = useSignal<Element>();
+
+	const incQRL = $(() => inc());
 
 	// eslint-disable-next-line qwik/no-use-visible-task
 	useVisibleTask$(({ track }) => {
@@ -16,9 +18,7 @@ export const ShowDigit = component$(() => {
 			duration: 2,
 			easings: "ease-in-out",
 			times: [0, 0.75, 0.75, 1],
-			onComplete: () => {
-				inc();
-			},
+			onComplete: incQRL,
 		});
 	});
 

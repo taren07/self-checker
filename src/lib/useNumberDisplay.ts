@@ -1,4 +1,4 @@
-import { useSignal, useComputed$, useTask$, useContext } from '@builder.io/qwik';
+import { useSignal, useComputed$, useTask$, useContext, $ } from '@builder.io/qwik';
 import { reversed } from './useArray';
 import invariant from 'tiny-invariant';
 import { NumbersContext, showDigitFinishedStep } from "../context/numbers";
@@ -39,9 +39,9 @@ export const useNumberDisplay = (): [NumberDisplay, { inc: () => void }] => {
     return { id, number: num };
   });
 
-  const inc = () => {
-    stepIndex.value += 1;
-  };
+  const inc = $(()=>{
+        stepIndex.value += 1;
+    });
 
   return [number.value, { inc }] as const;
 };
