@@ -16,7 +16,7 @@ export type resultStep = {
 	result: { tag: "correct" } | { tag: "wrong"; correct: number[] };
 };
 export type showDigitFinishedStep = {
-	tag: "ShowDigitFinished";
+	tag: "Answer";
 	correct: number[];
 };
 

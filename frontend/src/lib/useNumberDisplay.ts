@@ -27,7 +27,7 @@ export const useNumberDisplay = (): [NumberDisplay, { inc: () => void }] => {
   useTask$(({ track }) => {
     const index = track(() => stepIndex.value);
     if (index === numbersToDisplay.value.length) {
-      showDigitFinished.tag = 'ShowDigitFinished';
+      showDigitFinished.tag = 'Answer';
       showDigitFinished.correct = correct.value;
     }
   });

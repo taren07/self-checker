@@ -1,4 +1,4 @@
-import { style } from "@vanilla-extract/css";
+import { style } from "styled-vanilla-extract/qwik";
 
 export const container = style({
 	width: "100%",
