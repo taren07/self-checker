@@ -9,6 +9,7 @@ import { Top } from "./top";
 import { CountDown } from "./count-down";
 import { NumbersContext, NumbersStore } from "~/context/numbers";
 import { ShowDigit } from "./show-digit";
+import { Answer } from "./answer";
 
 export const SwitchComponent = component$(() => {
 	const numbersContext = useContext(NumbersContext);
@@ -26,7 +27,7 @@ export const SwitchComponent = component$(() => {
 		case "ShowDigit":
 			return <ShowDigit />;
 		case "Answer":
-			return <></>;
+			return <Answer />;
 		case "Result":
 			return <></>;
 	}

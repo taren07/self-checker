@@ -1,12 +1,11 @@
 import { component$, useStore } from "@builder.io/qwik";
-import { BackspaceIcon } from "@heroicons/react/outline";
-import { range } from "~/utils/number";
+import { range } from "~/lib/useNumber";
 import { styles } from "./styles/calculator-ui.css";
 
 type Props = {
 	onSubmit: (values: number[]) => void;
 };
-export const NumberPad = component$(({ onSubmit }: Props) => {
+export const CalculatorUi = component$(({ onSubmit }: Props) => {
 	const state = useStore({
 		input: [] as number[],
 	});
@@ -31,7 +30,7 @@ export const NumberPad = component$(({ onSubmit }: Props) => {
 			<div class={styles.inputRow}>
 				<div>{maskedInput}</div>
 				<button class={styles.backspaceButton} onClick$={popInput}>
-					<BackspaceIcon class={styles.icon} />
+					{/* <BackspaceIcon class={styles.icon} /> */}
 				</button>
 			</div>
 

@@ -1,6 +1,5 @@
 import { useSignal, useComputed$, useTask$, useContext, $ } from '@builder.io/qwik';
-import { reversed } from './useArray';
-import invariant from 'tiny-invariant';
+import { reversed } from "./useArray";
 import { NumbersContext, showDigitFinishedStep } from "../context/numbers";
 
 type ShowDigitStep = {
@@ -33,15 +32,14 @@ export const useNumberDisplay = (): [NumberDisplay, { inc: () => void }] => {
   });
 
   const number = useComputed$(() => {
-    const id = Math.floor(Math.random() * 1000);
-    const num = numbersToDisplay.value[stepIndex.value];
-    invariant(num !== undefined, 'number is undefined');
-    return { id, number: num };
-  });
+		const id = Math.floor(Math.random() * 1000);
+		const num = numbersToDisplay.value[stepIndex.value];
+		// invariant(num !== undefined, 'number is undefined');
+		return { id, number: num };
+	});
 
-  const inc = $(()=>{
-        stepIndex.value += 1;
-    });
-
+  const inc = $(() => {
+		stepIndex.value += 1;
+	});
   return [number.value, { inc }] as const;
 };
