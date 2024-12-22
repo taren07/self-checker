@@ -1,4 +1,4 @@
-import { component$, useStore } from "@builder.io/qwik";
+import { $, component$, useStore } from "@builder.io/qwik";
 import { range } from "~/lib/useNumber";
 import { styles } from "./styles/calculator-ui.css";
 
@@ -10,18 +10,18 @@ export const CalculatorUi = component$(({ onSubmit }: Props) => {
 		input: [] as number[],
 	});
 
-	const appendInput = (value: number) => {
+	const appendInput = $((value: number) => {
 		state.input = [...state.input, value];
-	};
+	});
 
-	const popInput = () => {
+	const popInput = $(() => {
 		state.input = state.input.slice(0, -1);
-	};
+	});
 
-	const handleSubmit = () => {
+	const handleSubmit = $(() => {
 		onSubmit(state.input);
 		state.input = [];
-	};
+	});
 
 	const maskedInput = state.input.map((n) => n.toString()).join(", ");
 
