@@ -19,6 +19,12 @@ export type showDigitFinishedStep = {
 	tag: "Answer";
 	correct: number[];
 };
+export type submitAnswerStep = {
+	tag: "SubmitAnswer";
+	correct: number[];
+	answer: number[];
+	duration: number;
+};
 
 export type step =
 	| { tag: "Top"; correct?: number[] }
@@ -26,12 +32,7 @@ export type step =
 	| { tag: "StartTrial"; answerLength: number }
 	| { tag: "CountDownFinished" }
 	| showDigitFinishedStep
-	| {
-			tag: "SubmitAnswer";
-			correct: number[];
-			answer: number[];
-			duration: number;
-	  }
+	| submitAnswerStep
 	| showDigitStep
 	| answerStep
 	| resultStep;
