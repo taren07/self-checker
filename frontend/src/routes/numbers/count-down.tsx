@@ -1,4 +1,4 @@
-import { component$, useSignal, useVisibleTask$ } from "@builder.io/qwik";
+import { $, component$, useSignal, useVisibleTask$ } from "@builder.io/qwik";
 import * as styles from "./styles/count-down.css";
 
 const totalCount = 3;
@@ -11,13 +11,17 @@ type Props = {
 export const CountDown = component$(({ onComplete }: Props) => {
 	const count = useSignal(0);
 
+	const wrappedOnComplete = $(() => {
+		onComplete();
+	});
+
 	useVisibleTask$(() => {
 		const interval = setInterval(() => {
 			if (count.value + 1 < totalCount) {
 				count.value += 1;
 			} else {
 				clearInterval(interval);
-				onComplete();
+				wrappedOnComplete();
 			}
 		}, countDownInterval);
 
