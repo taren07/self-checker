@@ -4,28 +4,32 @@ import {
 	useContextProvider,
 	useContext,
 	$,
-	useTask$,
+	useVisibleTask$,
 } from "@builder.io/qwik";
 import { Top } from "./top";
 import { CountDown } from "./count-down";
-import { NumbersContext, NumbersStore, reducer } from "~/context/numbers";
+import { NumbersContext, reducer } from "~/context/numbers";
+import type { NumbersState } from "~/context/numbers";
 import { ShowDigit } from "./show-digit";
 import { Answer } from "./answer";
 
 export const SwitchComponent = component$(() => {
 	const numbersContext = useContext(NumbersContext);
 
-	console.log(numbersContext.step);
-
 	const onComplete = $(() => {
 		numbersContext.step = { tag: "CountDownFinished" };
 		numbersContext.answerLength = 3;
 	});
 
-	useTask$(({ track }) => {
+	// eslint-disable-next-line qwik/no-use-visible-task
+	useVisibleTask$(({ track }) => {
 		const step = track(() => numbersContext.step);
-		if (step.tag === "CountDownFinished") {
-			reducer(numbersContext, { tag: "CountDownFinished" });
+		if (step.tag == "CountDownFinished") {
+			const state = reducer(numbersContext, { tag: "CountDownFinished" });
+			numbersContext.step = state.step;
+			numbersContext.answerLength = state.answerLength;
+			numbersContext.answers = state.answers;
+			numbersContext.direction = state.direction;
 		}
 	});
 
@@ -44,7 +48,7 @@ export const SwitchComponent = component$(() => {
 });
 
 export const DigitSpanBackward = component$(() => {
-	const numbersStore = useStore<NumbersStore>({
+	const numbersStore = useStore<NumbersState>({
 		step: { tag: "Top" },
 		direction: "backward",
 		answerLength: 3,

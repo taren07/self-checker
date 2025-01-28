@@ -11,17 +11,14 @@ type Props = {
 export const CountDown = component$(({ onComplete }: Props) => {
 	const count = useSignal(0);
 
-	const wrappedOnComplete = $(() => {
-		onComplete();
-	});
-
+	// eslint-disable-next-line qwik/no-use-visible-task
 	useVisibleTask$(() => {
 		const interval = setInterval(() => {
 			if (count.value + 1 < totalCount) {
 				count.value += 1;
 			} else {
 				clearInterval(interval);
-				wrappedOnComplete();
+				onComplete();
 			}
 		}, countDownInterval);
 

@@ -1,4 +1,4 @@
-import { $, component$, useContext, useStore } from "@builder.io/qwik";
+import { $, component$, useContext } from "@builder.io/qwik";
 import { NumbersContext } from "~/context/numbers";
 
 export const Top = component$(() => {

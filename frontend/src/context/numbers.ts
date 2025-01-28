@@ -4,12 +4,6 @@ import { randomInt, range } from "~/lib/useNumber";
 
 export type direction = "forward" | "backward";
 
-export type answer = {
-	answer: number[];
-	correct: number[];
-	duration: number;
-};
-
 export type showDigitStep = { tag: "ShowDigit"; correct: number[] };
 export type answerStep = { tag: "Answer"; correct: number[] };
 export type resultStep = {
@@ -38,13 +32,6 @@ export type step =
 	| answerStep
 	| resultStep;
 
-export type State = {
-	direction: direction;
-	step: step;
-	answerLength: number;
-	answers: answer[];
-};
-
 export type Action =
 	| { tag: "StartTrial"; answerLength: number }
 	| { tag: "CountDownFinished" }
@@ -56,11 +43,17 @@ export type Action =
 			duration: number;
 	  };
 
-export type NumbersStore = {
+export type answer = {
+	answer: number[];
+	correct: number[];
+	duration: number;
+};
+
+export type NumbersState = {
 	step: step;
-	direction?: direction;
-	answerLength: Number;
-	answers?: answer[];
+	direction: direction;
+	answerLength: number;
+	answers: answer[];
 };
 
 function generateAnswer(len: number): number[] {
@@ -72,7 +65,7 @@ function checkAnswer(correct: number[], answer: number[]): boolean {
 	return correct.every((val, idx) => val === answer[idx]);
 }
 
-export function reducer(state: State, action: Action): State {
+export function reducer(state: NumbersState, action: Action): NumbersState {
 	switch (action.tag) {
 		case "StartTrial":
 			return {
@@ -118,9 +111,8 @@ export function reducer(state: State, action: Action): State {
 	}
 }
 
-
-export const NumbersContext = createContextId<NumbersStore>(numbersContextId);
-export const NumbersStateContext = createContextId<State>(
+export const NumbersContext = createContextId<NumbersState>(numbersContextId);
+export const NumbersStateContext = createContextId<NumbersState>(
 	"NumbersStateContext"
 );
 export const NumbersDispatchContext = createContextId<(action: Action) => void>(
