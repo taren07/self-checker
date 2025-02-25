@@ -13,6 +13,9 @@ import type { NumbersState } from "~/context/numbers";
 import { ShowDigit } from "./show-digit";
 import { Answer } from "./answer";
 
+export const initialAnswerLength = 3;
+export const maxAnswerLength = 10;
+
 export const SwitchComponent = component$(() => {
 	const numbersContext = useContext(NumbersContext);
 

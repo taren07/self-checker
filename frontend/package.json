@@ -44,6 +44,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
+    "@qwikest/icons": "^0.0.13",
     "motion": "^11.11.17",
     "tiny-invariant": "^1.3.3",
     "ts-functional-pipe": "^3.1.2",
