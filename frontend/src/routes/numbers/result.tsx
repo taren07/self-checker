@@ -1,12 +1,9 @@
 
 import { component$, useContext, useStore } from "@builder.io/qwik";
-import { Form, useNavigate } from "@builder.io/qwik-city";
-import { CheckIcon, XIcon } from "@qwikest/icons";
-import { BoxedText } from "~/components/BoxedText";
-import { Backdrop } from "~/components/Backdrop";
-import { Spinner } from "~/components/Spinner";
-import { Button } from "~/components/Button";
-import { maxAnswerLength, initialAnswerLength } from "./index";
+import { useNavigate } from "@builder.io/qwik-city";
+import { LuCheck, LuX } from "@qwikest/icons/lucide";
+
+import { Spinner } from "~/components/spinner";
 import { NumbersContext, reducer } from "~/context/numbers";
 import { resultStyles } from "./styles/result.css";
 
@@ -27,6 +24,8 @@ type ResultData = {
 };
 
 export const Result = component$(() => {
+	const initialAnswerLength = 3;
+	const maxAnswerLength = 10;
 	const numbersContext = useContext(NumbersContext);
 	const navigate = useNavigate();
 	const current = numbersContext.step as ResultStep;
@@ -53,9 +52,9 @@ export const Result = component$(() => {
 	return (
 		<div class={resultStyles.container}>
 			{correct ? (
-				<CheckIcon class={resultStyles.icon} />
+				<LuCheck class={resultStyles.icon} />
 			) : (
-				<XIcon class={resultStyles.icon} />
+				<LuX class={resultStyles.icon} />
 			)}
 			<div class={resultStyles.messageBox}>
 				{correct ? (
@@ -67,44 +66,35 @@ export const Result = component$(() => {
 				) : (
 					<div class={resultStyles.wrongMessage}>
 						<p>正解は</p>
-						<BoxedText>
-							{current.result.tag === "wrong" && current.result.correct.map(String).join(", ")}
-						</BoxedText>
+						{current.result.tag === "wrong" &&
+							current.result.correct.map(String).join(", ")}
 					</div>
 				)}
 			</div>
 			<div>
 				{toBeContinued ? (
-					<Button
+					<button
 						onClick$={() =>
-							reducer(numbersContext, { tag: "StartTrial", answerLength: nextLen })
+							reducer(numbersContext, {
+								tag: "StartTrial",
+								answerLength: nextLen,
+							})
 						}
 					>
 						次へ
-					</Button>
+					</button>
 				) : (
-					// <Form
-					// 	method="post"
-					// 	action="/submit"
-					// 	onSubmit$={() => {
-					// 		store.submitting = true;
-					// 	}}
-					// >
-						<>
+					<>
 						<input
 							type="hidden"
 							name="resultData"
 							value={JSON.stringify(result)}
 						/>
-						<Button type="submit">次へ</Button>
-						</>
-					// </Form>
+						<button type="submit">次へ</button>
+					</>
 				)}
-				{store.submitting && (
-					<Backdrop>
-						<Spinner />
-					</Backdrop>
-				)}
+
+				{store.submitting && <Spinner />}
 			</div>
 		</div>
 	);

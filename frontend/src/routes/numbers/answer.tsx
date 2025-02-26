@@ -1,7 +1,7 @@
 // Answer.tsx
 import { $, component$, useContext, useStore } from "@builder.io/qwik";
 import { CalculatorUi } from "~/components/calculator-ui";
-import { submitAnswerStep, NumbersContext } from "~/context/numbers";
+import { submitAnswerStep, NumbersContext, reducer } from "~/context/numbers";
 import * as styles from "./styles/answer.css";
 
 export const Answer = component$(() => {
@@ -11,13 +11,17 @@ export const Answer = component$(() => {
 
 	const onSubmit = $((input: number[]) => {
 		const duration = Date.now() - state.startAt;
-		const newStep = {
-			tag: "SubmitAnswer" as const,
+		const submitData = reducer(numbersContext, {
+			tag: "SubmitAnswer",
 			correct: step.correct,
 			answer: input,
-			duration: duration,
-		};
-		numbersContext.step = newStep;
+			duration,
+		});
+
+		numbersContext.step = submitData.step;
+		numbersContext.answerLength = submitData.answerLength;
+		numbersContext.answers = submitData.answers;
+		numbersContext.direction = submitData.direction;
 	});
 
 	return (
