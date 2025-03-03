@@ -1,5 +1,5 @@
 
-import { component$, useContext, useStore } from "@builder.io/qwik";
+import { $, component$, useContext, useStore } from "@builder.io/qwik";
 import { useNavigate } from "@builder.io/qwik-city";
 import { LuCheck, LuX } from "@qwikest/icons/lucide";
 
@@ -44,6 +44,17 @@ export const Result = component$(() => {
 		}
 	})();
 
+	const nextStep = $(() => {
+		numbersContext.answerLength = nextLen;
+		const nextData = reducer(numbersContext, {
+			tag: "CountDownFinished",
+		});
+		numbersContext.step = nextData.step;
+		numbersContext.direction = nextData.direction;
+		numbersContext.answers = nextData.answers;
+		numbersContext.answerLength = nextData.answerLength;
+	});
+
 	const result: ResultData = {
 		correctlyAnsweredLength,
 		answers: numbersContext.answers,
@@ -73,16 +84,7 @@ export const Result = component$(() => {
 			</div>
 			<div>
 				{toBeContinued ? (
-					<button
-						onClick$={() =>
-							reducer(numbersContext, {
-								tag: "StartTrial",
-								answerLength: nextLen,
-							})
-						}
-					>
-						次へ
-					</button>
+					<button onClick$={nextStep}>次へ</button>
 				) : (
 					<>
 						<input
