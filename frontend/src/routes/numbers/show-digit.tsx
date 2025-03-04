@@ -35,7 +35,7 @@ export const ShowDigit = component$(() => {
 
 		const animation = animate(container, { opacity: [1, 1, 0, 0] } as any, {
 			duration: 2,
-			easings: "ease-in-out",
+			ease: "easeInOut",
 			times: [0, 0.75, 0.75, 1],
 			onComplete: incQRL,
 		});
