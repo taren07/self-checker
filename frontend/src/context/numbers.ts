@@ -20,6 +20,7 @@ export type submitAnswerStep = {
 	answer: number[];
 	duration: number;
 };
+export type completeStep = { tag: "Complete" };
 
 export type step =
 	| { tag: "Top"; correct?: number[] }
@@ -41,7 +42,8 @@ export type Action =
 			answer: number[];
 			correct: number[];
 			duration: number;
-	  };
+	  }
+	| { tag: "Complete" };
 
 export type answer = {
 	answer: number[];
@@ -105,6 +107,14 @@ export function reducer(state: NumbersState, action: Action): NumbersState {
 						? { tag: "correct" }
 						: { tag: "wrong", correct: action.correct },
 				},
+			};
+		case "Complete":
+			return {
+				...state,
+				step: { tag: "Top" },
+				direction: "backward",
+				answerLength: 3,
+				answers: [],
 			};
 		default:
 			throw new Error("Unhandled action type");
