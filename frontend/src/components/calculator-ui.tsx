@@ -5,7 +5,8 @@ import { styles } from "./styles/calculator-ui.css";
 type Props = {
 	onSubmit: (values: number[]) => void;
 };
-export const CalculatorUi = component$(({ onSubmit }: Props) => {
+export const CalculatorUi = component$((props: Props) => {
+	const onSubmit = $(props.onSubmit);
 	const state = useStore({
 		input: [] as number[],
 	});
