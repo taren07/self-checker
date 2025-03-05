@@ -15,6 +15,7 @@ export const ShowDigit = component$(() => {
 	const [number, { inc }] = useNumberDisplay();
 	const containerRef = useSignal<Element>();
 
+	// eslint-disable-next-line qwik/valid-lexical-scope
 	const incQRL = $(() => inc());
 
 	const proceed = $(() => {

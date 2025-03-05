@@ -33,17 +33,18 @@ export type step =
 	| answerStep
 	| resultStep;
 
+/* eslint-disable no-mixed-spaces-and-tabs */
 export type Action =
 	| { tag: "StartTrial"; answerLength: number }
 	| { tag: "CountDownFinished" }
 	| { tag: "ShowDigitFinished"; correct: number[] }
+	| { tag: "Complete" }
 	| {
 			tag: "SubmitAnswer";
 			answer: number[];
 			correct: number[];
 			duration: number;
-	  }
-	| { tag: "Complete" };
+	  };
 
 export type answer = {
 	answer: number[];

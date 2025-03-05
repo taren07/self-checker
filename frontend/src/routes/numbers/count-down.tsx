@@ -1,4 +1,4 @@
-import { $, component$, useSignal, useVisibleTask$ } from "@builder.io/qwik";
+import { component$, useSignal, useVisibleTask$ } from "@builder.io/qwik";
 import * as styles from "./styles/count-down.css";
 
 const totalCount = 3;
@@ -18,6 +18,7 @@ export const CountDown = component$(({ onComplete }: Props) => {
 				count.value += 1;
 			} else {
 				clearInterval(interval);
+				// eslint-disable-next-line qwik/valid-lexical-scope
 				onComplete();
 			}
 		}, countDownInterval);
