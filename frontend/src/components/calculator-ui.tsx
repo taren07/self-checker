@@ -5,8 +5,7 @@ import { styles } from "./styles/calculator-ui.css";
 type Props = {
 	onSubmit: (values: number[]) => void;
 };
-export const CalculatorUi = component$((props: Props) => {
-	const onSubmit = $(props.onSubmit);
+export const CalculatorUi = component$(({ onSubmit }: Props) => {
 	const state = useStore({
 		input: [] as number[],
 	});
@@ -20,6 +19,7 @@ export const CalculatorUi = component$((props: Props) => {
 	});
 
 	const handleSubmit = $(() => {
+		// eslint-disable-next-line qwik/valid-lexical-scope
 		onSubmit(state.input);
 		state.input = [];
 	});
