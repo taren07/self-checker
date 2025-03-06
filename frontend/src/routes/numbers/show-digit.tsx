@@ -19,14 +19,18 @@ export const ShowDigit = component$(() => {
 	const incQRL = $(() => inc());
 
 	const proceed = $(() => {
-		const state = reducer(numbersContext, {
-			tag: "ShowDigitFinished",
-			correct: numbersContext.answers[1].correct,
-		});
-		numbersContext.step = state.step;
-		numbersContext.answerLength = state.answerLength;
-		numbersContext.answers = state.answers;
-		numbersContext.direction = state.direction;
+		if (numbersContext.answers.length > 1) {
+			const state = reducer(numbersContext, {
+				tag: "ShowDigitFinished",
+				correct: numbersContext.answers[1].correct,
+			});
+			numbersContext.step = state.step;
+			numbersContext.answerLength = state.answerLength;
+			numbersContext.answers = state.answers;
+			numbersContext.direction = state.direction;
+		} else {
+			console.error("answers 配列の長さが不足しています");
+		}
 	});
 
 	// eslint-disable-next-line qwik/no-use-visible-task

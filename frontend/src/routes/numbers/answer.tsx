@@ -31,7 +31,7 @@ export const Answer = component$(() => {
 					<div>覚えた数字を、</div>
 					<div>
 						表示された順番とは
-						<div>逆の順番</div>で
+						<div>逆の順番で</div>
 					</div>
 					<div>回答してください</div>
 				</div>
