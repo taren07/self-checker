@@ -28,8 +28,6 @@ export const ShowDigit = component$(() => {
 			numbersContext.answerLength = state.answerLength;
 			numbersContext.answers = state.answers;
 			numbersContext.direction = state.direction;
-		} else {
-			console.error("answers 配列の長さが不足しています");
 		}
 	});
 

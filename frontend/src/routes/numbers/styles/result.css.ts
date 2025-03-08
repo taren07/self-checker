@@ -11,16 +11,17 @@ export const resultStyles = {
 	}),
 	icon: style({
 		width: "8rem",
-		color: "#228B22", // forest color
+		height: "8rem",
+		color: "#228B22",
 	}),
 	messageBox: style({
-		fontSize: "20px",
+		fontSize: "25px",
 		fontWeight: "bold",
 		textAlign: "center",
 		paddingBottom: "56px",
 	}),
 	wrongMessage: style({
-		paddingTop: "24px",
+		paddingTop: "25px",
 		display: "flex",
 		flexDirection: "column",
 		alignItems: "center",

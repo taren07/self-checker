@@ -5,6 +5,7 @@ import { LuCheck, LuX } from "@qwikest/icons/lucide";
 import { Spinner } from "~/components/spinner";
 import { NumbersContext, reducer } from "~/context/numbers";
 import { resultStyles } from "./styles/result.css";
+import * as styles from "~/components/styles/button.css";
 
 type ResultStep = {
 	tag: "Result";
@@ -21,9 +22,9 @@ export const Result = component$(() => {
 	const store = useStore({ submitting: false });
 
 	const nextStep = $(() => {
-		numbersContext.answerLength = nextLen;
 		const nextData = reducer(numbersContext, {
-			tag: "CountDownFinished",
+			tag: "StartTrial",
+			answerLength: numbersContext.answerLength + 1,
 		});
 		numbersContext.step = nextData.step;
 		numbersContext.direction = nextData.direction;
@@ -65,9 +66,13 @@ export const Result = component$(() => {
 			</div>
 			<div>
 				{toBeContinued ? (
-					<button onClick$={nextStep}>次へ</button>
+					<button class={styles.button} onClick$={nextStep}>
+						次へ
+					</button>
 				) : (
-					<button onClick$={completeStep}>もう一度チャレンジする</button>
+					<button class={styles.button} onClick$={completeStep}>
+						もう一度チャレンジする
+					</button>
 				)}
 
 				{store.submitting && <Spinner />}

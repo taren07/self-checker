@@ -22,9 +22,16 @@ export const styles = {
 		alignItems: "center",
 		justifyContent: "center",
 	}),
+	maskedInput: style({
+		fontSize: "1.2rem",
+		padding: "0.5rem",
+		border: "none",
+		borderRadius: "0.5rem",
+		textAlign: "right",
+	}),
 	icon: style({
-		width: "1.5rem",
-		height: "1.5rem",
+		width: "3rem",
+		height: "3rem",
 	}),
 	buttonGrid: style({
 		display: "grid",

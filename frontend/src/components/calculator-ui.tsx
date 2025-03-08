@@ -30,7 +30,7 @@ export const CalculatorUi = component$(({ onSubmit }: Props) => {
 	return (
 		<div class={styles.container}>
 			<div class={styles.inputRow}>
-				<div>{maskedInput}</div>
+				<div class={styles.maskedInput}>{maskedInput}</div>
 				<button class={styles.backspaceButton} onClick$={popInput}>
 					<LuDelete class={styles.icon} />
 				</button>

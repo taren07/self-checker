@@ -75,6 +75,7 @@ export function reducer(state: NumbersState, action: Action): NumbersState {
 				...state,
 				answerLength: action.answerLength,
 				step: { tag: "CountDown" },
+				answers: [],
 			};
 		case "CountDownFinished":
 			return {

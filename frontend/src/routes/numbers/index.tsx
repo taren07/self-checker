@@ -4,7 +4,6 @@ import {
 	useContextProvider,
 	useContext,
 	$,
-	useVisibleTask$,
 } from "@builder.io/qwik";
 import { Top } from "./top";
 import { CountDown } from "./count-down";
@@ -18,20 +17,11 @@ export const SwitchComponent = component$(() => {
 	const numbersContext = useContext(NumbersContext);
 
 	const onComplete = $(() => {
-		numbersContext.step = { tag: "CountDownFinished" };
-		numbersContext.answerLength = 3;
-	});
-
-	// eslint-disable-next-line qwik/no-use-visible-task
-	useVisibleTask$(({ track }) => {
-		const step = track(() => numbersContext.step);
-		if (step.tag == "CountDownFinished") {
-			const state = reducer(numbersContext, { tag: "CountDownFinished" });
-			numbersContext.step = state.step;
-			numbersContext.answerLength = state.answerLength;
-			numbersContext.answers = state.answers;
-			numbersContext.direction = state.direction;
-		}
+		const state = reducer(numbersContext, { tag: "CountDownFinished" });
+		numbersContext.step = state.step;
+		numbersContext.answerLength = state.answerLength;
+		numbersContext.answers = state.answers;
+		numbersContext.direction = state.direction;
 	});
 
 	switch (numbersContext.step.tag) {
