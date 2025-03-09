@@ -24,6 +24,8 @@
     "preview": "qwik build preview && vite preview --open",
     "serve": "wrangler pages dev ./dist --compatibility-flags=nodejs_als",
     "start": "vite --open --mode ssr",
+    "test.unit": "vitest components",
+    "test.unit.ui": "vitest --ui components",
     "qwik": "qwik"
   },
   "devDependencies": {
@@ -35,6 +37,7 @@
     "@typescript-eslint/parser": "^6.19.1",
     "@vanilla-extract/css": "^1.12.0",
     "@vanilla-extract/vite-plugin": "^4.0.18",
+    "@vitest/ui": "^0.34.6",
     "eslint": "^8.56.0",
     "eslint-plugin-qwik": "^1.4.3",
     "prettier": "^3.2.4",
@@ -43,6 +46,7 @@
     "undici": "*",
     "vite": "^5.0.12",
     "vite-tsconfig-paths": "^4.2.1",
+    "vitest": "^0.34.6",
     "wrangler": "^3.0.0"
   },
   "dependencies": {
