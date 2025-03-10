@@ -1,4 +1,4 @@
-import { style } from "styled-vanilla-extract/qwik";
+import { style } from "@vanilla-extract/css";
 
 export const layout = style({
 	display: "flex",
