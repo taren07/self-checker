@@ -24,9 +24,6 @@ export type Action =
 	| { tag: "StartTrial" }
 	| {
 			tag: "CountDownFinished";
-			answer: number;
-			correct: number;
-			duration: number;
 	  }
 	| { tag: "SubmitAnswer"; correct: number; answer: number }
 	| { tag: "NextTrial" }
