@@ -13,7 +13,7 @@ export type ArithmeticState = {
 export type step =
 	| { tag: "Top" }
 	| { tag: "CountDown" }
-	| { tag: "ShowCalculator"; problem: string; correct: number }
+	| { tag: "ShowProblem"; problem: string; correct: number }
 	| {
 			tag: "Result";
 			result: { tag: "correct" } | { tag: "wrong"; correct: number };
@@ -31,9 +31,6 @@ export type Action =
 	| { tag: "SubmitAnswer"; correct: number; answer: number }
 	| { tag: "NextTrial" }
 	| { tag: "Complete" };
-
-export const ArithmeticContext =
-	createContextId<ArithmeticState>(arithmeticContextId);
 
 export function generateMathProblem(): { problem: string; correct: number } {
 	const num1 = Math.floor(Math.random() * 90) + 10;
@@ -78,7 +75,7 @@ export function reducer(
 			return {
 				...context,
 				step: {
-					tag: "ShowCalculator",
+					tag: "ShowProblem",
 					problem: generateMathProblem().problem,
 					correct: generateMathProblem().correct,
 				},
@@ -94,5 +91,18 @@ export function reducer(
 				},
 			};
 		case "NextTrial":
+			return {
+				...context,
+				step: {
+					tag: "ShowProblem",
+					problem: generateMathProblem().problem,
+					correct: generateMathProblem().correct,
+				},
+			};
+		default:
+			throw new Error("Unhandled action type");
 	}
 }
+
+export const ArithmeticContext =
+	createContextId<ArithmeticState>(arithmeticContextId);
