@@ -5,42 +5,60 @@ import {
 	useContextProvider,
 	useStore,
 } from "@builder.io/qwik";
-import { ArithmeticContext, reducer } from "~/context/arithmetic";
-import type { ArithmeticState } from "~/context/arithmetic";
+import {
+	ArithmeticUiContext,
+	ArithmeticActionContext,
+	useActionReducer,
+	useUiReducer,
+} from "~/context/arithmetic";
+import type {
+	ArithmeticUiState,
+	ArithmeticActionState,
+} from "~/context/arithmetic";
 import { Top } from "./top";
 import { CountDown } from "../numbers/count-down";
 import * as styles from "../arithmetic/styles/show-problem.css";
 import { CalculatorUi } from "~/components/calculator-ui";
 
 export const Arithmetic = component$(() => {
-	const arithmeticStore = useStore<ArithmeticState>({
-		step: { tag: "Top" },
-		problem: "",
-		answer: 0,
-		correct: 0,
-		duration: 0,
+	const uiStore = useStore<ArithmeticUiState>({
+		step: { tag: "StartTrial" },
 	});
-	useContextProvider(ArithmeticContext, arithmeticStore);
-	const arithmeticContext = useContext(ArithmeticContext);
+	const actionStore = useStore<ArithmeticActionState>({
+		step: { tag: "GenerateProblem" },
+	});
+
+	useContextProvider(ArithmeticUiContext, uiStore);
+	useContextProvider(ArithmeticActionContext, actionStore);
+	const uiContext = useContext(ArithmeticUiContext);
+	const actionContext = useContext(ArithmeticActionContext);
 
 	const onComplete = $(() => {
-		const state = reducer(arithmeticContext, { tag: "CountDownFinished" });
-		arithmeticContext.step = state.step;
-		arithmeticContext.problem = state.problem;
-		arithmeticContext.correct = state.correct;
+		const state = useUiReducer(uiContext, {
+			tag: "CountDownFinished",
+		});
+		uiContext.step = state.step;
 	});
 
-	const onSubmit = $(() => {});
+	const onSubmit = $(() => {
+		const state = useActionReducer(actionContext, {
+			tag: "SubmitAnswer",
+			answer: [0],
+		});
+		actionContext.step = state.step;
+	});
 
 	return (
 		<>
-			{arithmeticContext.step.tag === "Top" && <Top />}
-			{arithmeticContext.step.tag === "CountDown" && (
+			{uiContext.step.tag === "Top" && <Top />}
+			{uiContext.step.tag === "CountDown" && (
 				<CountDown onComplete={onComplete} />
 			)}
-			<div class={styles.calculatorWrapper}>
-				<CalculatorUi onSubmit={onSubmit} />
-			</div>
+			{uiContext.step.tag === "ShowCalculator" && (
+				<div class={styles.calculatorWrapper}>
+					<CalculatorUi onSubmit={onSubmit} />
+				</div>
+			)}
 		</>
 	);
 });

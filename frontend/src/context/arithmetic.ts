@@ -11,9 +11,10 @@ export type ArithmeticUiState = {
 
 /* eslint-disable no-mixed-spaces-and-tabs */
 export type uiStep =
+	| { tag: "Top" }
 	| { tag: "StartTrial" }
-	| { tag: "CountDownFinished" }
 	| { tag: "CountDown" }
+	| { tag: "CountDownFinished" }
 	| { tag: "ShowCalculator" }
 	| { tag: "Complete" }
 	| { tag: "NextTest" };
